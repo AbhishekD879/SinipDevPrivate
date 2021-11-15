@@ -1,0 +1,53 @@
+.register{
+    color: white;
+    height: 70vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #001E3C;
+    justify-content: center;
+    margin: 1rem auto;
+    border-radius: 20px;
+    width: 50%;
+
+}
+.register__input{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+}
+.register__btn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.register__input >input{
+    
+        border-radius: 8px;
+        border: 2px solid #dddfe2;
+        outline: none;
+        color: #1d2129;
+        margin: 0.5rem 0;
+        padding: 0.5rem 0.75rem;
+        
+        font-size: 1rem;
+    
+}
+.register__btn > .button {
+    background: #1877f2;
+    border: 1px solid #1877f2;
+    color: #fff;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+   
+
+}
+.register > h1{
+    margin-bottom: 1rem;
+}

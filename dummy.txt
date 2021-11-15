@@ -1,0 +1,7 @@
+<div key={snipp._id} className="mySnip">
+        <div className="mySnip__title__action"> <h3>{snipp.title}</h3>
+        <div><IconButton className={classes.mySnipp__btn}><ModelTrainingIcon /></IconButton>   <IconButton className={classes.mySnipp__btn}><DeleteIcon /></IconButton></div>
+        </div>
+        <Divider className={classes.Divider} />
+         <pre>{(snipp.snippet).slice(0,100)}<span> ....</span></pre>
+        </div>

@@ -1,0 +1,39 @@
+.mySnip{
+    width: 70%;
+    margin: auto;
+    padding: 1rem;
+    background-color: #001E3C;
+    color: white;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+}
+.mySnip__title__action{
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+}
+.mySnip__title__action > h3{
+    flex: 1;
+}
+.mySnip> pre{
+    margin-top: .5rem;
+}
+.mySnip> pre> span{
+    color: #007CF8;
+    font-size: 1rem;
+}
+.mySnip__container{
+    height: 480px;
+    overflow-y:scroll;
+    width: 80%;
+    margin: auto;
+}
+div::-webkit-scrollbar{
+    width: 2px;
+   }
+   div::-webkit-scrollbar-thumb{
+     background-color: white;
+   }
+   div::-webkit-scrollbar-track{
+     background-color: grey;
+   }

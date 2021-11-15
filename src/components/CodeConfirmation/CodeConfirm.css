@@ -1,0 +1,48 @@
+.CodeConfirm{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    width: 75%;
+}
+.CodeConfirm__mainConatiner{
+    display: flex ;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+
+}
+.CodeConfirm__codeTitle__codeblock{
+    flex: 1;
+}
+.traning__Drills{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    color: white;
+    margin-left: 2rem;
+    background-color: #001E3C;
+    padding: 20px;
+    
+    border-radius: 10px;
+}
+.traning__drills__filters{
+    display: flex;
+    color: white;
+    align-items: center;
+   
+    width: 100%;
+    margin: 1.5rem auto;
+}
+.repetationInput{
+    padding: 2px 5px;
+    background-color: white;
+    margin-left: 1.5rem;
+    color: #001E3C;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
