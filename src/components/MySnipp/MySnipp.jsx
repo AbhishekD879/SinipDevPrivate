@@ -1,10 +1,13 @@
 import React,{useEffect,useState} from 'react'
 import axios from 'axios'
 import "./MySnipp.css"
+import { useSelector,useDispatch } from 'react-redux';
 import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Divider, IconButton } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useHistory } from 'react-router';
+import { setLanaguge,setSnippet,codeTitleaction } from '../../action'
 const useStyle=makeStyles({
     Divider:{
         borderColor:"white !important",
@@ -19,8 +22,12 @@ const useStyle=makeStyles({
 })
 
 const MySnipp = () => {
+    const history=useHistory()
+    const dispatch=useDispatch()
     const classes=useStyle()
-    const [userData,setUserData]=useState([{}])
+    const [userData,setUserData]=useState({})
+    const [reRender,setReRenderer]=useState(false)
+    const currentuser=useSelector((state)=>state.setCurrentUser)
     // let sinpp=`line-height: normal;
 
     // /* Unitless values: use this number multiplied
@@ -40,26 +47,46 @@ const MySnipp = () => {
     // line-height: unset;`
     
     const datafetcher= async()=>{
-        const {data}= await axios.get("http://localhost:5000/users/617424161595d185fad939ae/snippets").catch((err)=>console.log(err))
+      if(isEmpty(currentuser)===false){
+        const {data}= await axios.get(`http://localhost:5000/users/${currentuser._id}/snippets`).catch((err)=>console.log(err))
+        
         setUserData(data)
+      }
+       
     }
     useEffect(()=>{
       datafetcher()
-    },[])
-    console.log(userData)
+    },[reRender])
+    let isEmpty=(obj)=>{
+     return Object.keys(obj).length === 0
+    }
+
+    const deletingSavedCode= async(snipid)=>{
+      console.log(snipid);
+     await axios.delete(`http://localhost:5000/users/${currentuser._id}/snippets/${snipid}`).then((res)=>{alert("Deleted Sucussfully")}).catch((err)=>{console.log(err);})
+     setReRenderer(!reRender)
+    }
+
+    const trainingSavedCode=(title,snipp,lan)=>{
+      dispatch(setSnippet(snipp));
+      dispatch(setLanaguge(lan));
+      dispatch(codeTitleaction(title));
+      history.push("/codeConfirmation")
+    }
+
     return (
       
         
   <div className="mySnip__container">
- {userData.map((snipp)=>(
+ {isEmpty(userData)===false?userData.map((snipp)=>(
   <div key={snipp._id} className="mySnip">
   <div className="mySnip__title__action"> <h3>{snipp.title}</h3>
-  <div><IconButton className={classes.mySnipp__btn}><ModelTrainingIcon /></IconButton>   <IconButton className={classes.mySnipp__btn}><DeleteIcon /></IconButton></div>
+  <div><IconButton onClick={()=>{trainingSavedCode(snipp.title,snipp.snippet,snipp.lanaguge)}} className={classes.mySnipp__btn}><ModelTrainingIcon /></IconButton>   <IconButton onClick={()=>{deletingSavedCode(snipp._id)}} className={classes.mySnipp__btn}><DeleteIcon /></IconButton></div>
   </div>
   <Divider className={classes.Divider} />
-   <pre>{(snipp.snippet).slice(0,100)}<span> ....</span></pre>
+   <pre>{(snipp.snippet).slice(0,200)}<span> ....</span></pre>
   </div>
- ))}
+ )):null}
   </div>
         
     )

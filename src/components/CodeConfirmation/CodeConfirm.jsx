@@ -1,5 +1,6 @@
 import React from 'react'
 import './CodeConfirm.css'
+import axios from 'axios';
 import { useSelector,useDispatch } from 'react-redux';
 import { setSnippet } from '../../action'
 import {Controlled as CodeMirror} from 'react-codemirror2'
@@ -52,6 +53,7 @@ const CodeConfirm = () => {
   const timerFilterstate=useSelector((state)=>state.setTimerFilter)
   const codeTitle=useSelector((state)=>state.setCodeTitle)
   const numberofrepetation=useSelector((state)=>state.setNumberOfRepeation)
+  const currentuser=useSelector((state)=>state.setCurrentUser)
   let history=useHistory()
   // Action Performed when Confirm Btn is clicked 
   let confirmBtn=()=>{
@@ -63,6 +65,21 @@ const CodeConfirm = () => {
   let goBack=()=>{
     history.push("/")
   } 
+  let savebtn= async()=>{
+    
+    if(Object.keys(currentuser).length !== 0){
+      let snipsave=snippet.replace(/\n/gmi," \n ")
+    console.log(snipsave);
+    let savedsnipp={
+      title:codeTitle,
+      snippet:snipsave,
+      lanaguge:lanaguge
+    }
+    
+    await axios.post(`http://localhost:5000/users/${currentuser._id}/snippets `,savedsnipp).then((res)=>{alert("Saved");}).catch((err)=>console.log(err))
+    }
+
+  }
     return (
         <div className="CodeConfirm">
             <div className="CodeConfirm__mainConatiner">
@@ -95,7 +112,7 @@ const CodeConfirm = () => {
                     <h1>Training Drills</h1>
                     <Divider className={classes.Divider} />
                     </div>
-                    <div className="traning__drills__filters"><IconButton className={classes.saveBtn}><DescriptionRoundedIcon/></IconButton> <h3>Save Snippet</h3></div>
+                    <div className="traning__drills__filters"><IconButton onClick={savebtn} className={classes.saveBtn}><DescriptionRoundedIcon/></IconButton> <h3>Save Snippet</h3></div>
                     <div className="traning__drills__filters"> <Checkbox onClick={(e)=>{dispatch(Repeation(e.target.checked))}} className={classes.checkbox} lable="Repetation" /> <h3>Repetation</h3>{repeatation?<input onChange={(e)=>dispatch(numberOfReapeation(e.target.valueAsNumber))} className="repetationInput" type='number'  min='5' max='50' value={numberofrepetation}
 
                     />:null}</div>

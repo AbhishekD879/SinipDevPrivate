@@ -67,6 +67,9 @@ cursor: pointer;
     .header__navbar{
         display: none;
     }
+    .hamburger{
+        display: block;
+    }
 }
 @media screen and (max-width:500px) {
     .header{

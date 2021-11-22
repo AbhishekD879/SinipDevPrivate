@@ -52,8 +52,8 @@ const CodeEntry = () => {
   const classes=useStyles()
   let history=useHistory()
   let trainMe=()=>{
-    if(snippet===""){
-      alert('Code Cannot be Empty')
+    if(snippet===""||codeTitle===""||lanaguge==="Select lanaguge"){
+      alert('Invalid Input Please Check If You Have Missed Anything')
     }else{
       history.push("/codeConfirmation")
     }

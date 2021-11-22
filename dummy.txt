@@ -5,3 +5,12 @@
         <Divider className={classes.Divider} />
          <pre>{(snipp.snippet).slice(0,100)}<span> ....</span></pre>
         </div>
+/////////////////////////////////////////////////////////
+if(lxp<limit){
+                            setlxp((pre)=>pre+=pre
+                        }
+                        else
+                        {
+                            dispatch(setXp(lxp))
+                            clearInterval(xpId)
+                        }        

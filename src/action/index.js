@@ -53,3 +53,9 @@ export const currentUser=(payload)=>{
         payload
     }
 }
+export const xp=(payload)=>{
+    return{
+        type:'XP',
+        payload
+    }
+}

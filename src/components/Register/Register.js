@@ -41,7 +41,8 @@ const Register = () => {
                                 firstName,
                                 lastName,
                                 emailAddress,
-                                password
+                                password,
+                                Xp:0
                             }
                             axios.post("http://localhost:5000/users",newUser)
                             .then((res)=>console.log(res))

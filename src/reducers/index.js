@@ -8,6 +8,7 @@ import setNumberOfRepeation from "./numberOfRepeation";
 import setIncommingData from "./setIncommingData";
 import setLoginStatus from "./setLoginStatus";
 import setCurrentUser from "./setCurrentUser";
+import setXp from "./setXp";
 
 const rootReducer=combineReducers({
    setLanagugeSelection,
@@ -18,7 +19,8 @@ const rootReducer=combineReducers({
    setNumberOfRepeation,
    setIncommingData,
    setLoginStatus,
-   setCurrentUser
+   setCurrentUser,
+   setXp
   
    
 });

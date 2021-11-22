@@ -17,6 +17,7 @@ import {
 import MySnipp from './components/MySnipp/MySnipp';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
+import GoogleLoginBtn from './components/GoogleLogin/GoogleLogin';
 
 
 const CodeConfirm=React.lazy(()=>import("./components/CodeConfirmation/CodeConfirm"))
@@ -67,6 +68,7 @@ function App() {
      {/* <Register /> */}
      
      {/* <Login/> */}
+    {/* <GoogleLoginBtn /> */}
    
     </div>
   );

@@ -57,8 +57,9 @@ const Header = () => {
     const currentuser=useSelector((state)=>state.setCurrentUser)
     const classes=useStyles()
     const logo ="{SnippDev}"
+    const XP=useSelector((state)=>state.setXp)
     const [open,setOpen]=useState(false)
-    let nameInitial=""
+    
     const avaterClick=()=>{
         if(loginstatus){
             return null
@@ -76,13 +77,13 @@ const Header = () => {
             </div>
             <div className="header__navbar">
                 <Router>
-                <Link  to="/" className="header__navItems">Home</Link>
-                <Link to="/mySnip" className="header__navItems">My Snips</Link>
+                <Link onClick={()=>{history.push("/")}}  to="/" className="header__navItems">Home</Link>
+                <Link onClick={()=>{history.push("/mySnip")}} to="/mySnip" className="header__navItems">My Snips</Link>
                 <Link to="/" className="header__navItems">About Us</Link>
                 </Router>
             </div>
             <div className="header__xpAvatar">
-                <h3><span>80</span> XP</h3>
+                <h3><span>{XP||currentuser.Xp}</span> XP</h3>
                 <Avatar onClick={avaterClick}  className={classes.avatar}></Avatar>
             </div>
 

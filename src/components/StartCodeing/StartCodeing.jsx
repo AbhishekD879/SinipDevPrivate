@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import "./StartCodeing.css"
-import { useSelector} from 'react-redux';
+import { useSelector,useDispatch} from 'react-redux';
 import {Controlled as CodeMirror} from 'react-codemirror2'
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/rubyblue.css';
@@ -18,9 +18,12 @@ import "codemirror/mode/php/php";
 import "codemirror/mode/powershell/powershell";
 import "codemirror/mode/clike/clike";
 import "codemirror/mode/r/r";
+import { xp } from '../../action';
 import Timer from '../Timer/Timer';
 import { useHistory } from 'react-router';
+import axios from 'axios';
 const StartCodeing = () => {
+    const dispatch=useDispatch()
     const [startCode,setStartCode]=useState('')
     const [startCodeingTimer,setCodeingTimer]=useState(false)
     const snippet=useSelector((state)=>state.setSnippetString)
@@ -29,13 +32,26 @@ const StartCodeing = () => {
     const timerFilterstate=useSelector((state)=>state.setTimerFilter)
     const numberofrepetation=useSelector((state)=>state.setNumberOfRepeation)
     const [remainingrep,setRemainingep]=useState(numberofrepetation)
+    const currentuser=useSelector((state)=>state.setCurrentUser)
+    const XP=useSelector((state)=>state.setXp)
     let history=useHistory();
     
     
     // Actions Performed when Leave Training Btn is Clicked
     const leaveTrainingBtn=()=>{
         setCodeingTimer(false);/* Pausing  The Timer*/
+        if(isEmpty(currentuser)){
+            return null
+        }else{
+            xpPatcher({Xp:XP})
+        }
         history.push("/")
+    }
+    const xpPatcher=async(obj)=>{
+        await axios.patch(`http://localhost:5000/users/${currentuser._id}/`,obj).then((res)=>{console.log("patched Xp");})
+    }
+    let isEmpty=(obj)=>{
+        return Object.keys(obj).length === 0
     }
     // End Of Action Performed By the Leave Training Btn
 
@@ -47,11 +63,19 @@ const StartCodeing = () => {
                 setCodeingTimer(false);
                 setRemainingep(preRep=>preRep-1)
                 setStartCode('')
+                // let limit =XP+10
+                dispatch(xp(currentuser.Xp+10))
+                
             }else{
                 alert("Opps You Your Code Didnt Match Please Try Again")
                 setCodeingTimer(false);
             }
         }else{
+            if(isEmpty(currentuser)){
+                return null
+            }else{
+                xpPatcher({Xp:XP})
+            }
             history.push("/")
         }
         // setCodeingTimer(false);
@@ -89,6 +113,7 @@ const StartCodeing = () => {
                      </div>
                 </div>
             </div>
+        
             <div className="StartingCodeing__appliedFilter">
                 <div className="StartCodeing__Timer">
                    {timerFilterstate? <Timer timerSwitch={startCodeingTimer}/>:null}
